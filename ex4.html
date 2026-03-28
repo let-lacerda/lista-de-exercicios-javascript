@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 4</title>
+</head>
+<body>
+    <script>
+    
+    // Declare uma variável let numero = 10 fora de um bloco {}. 
+    // Dentro do bloco, declare novamente let numero = 20. 
+    // Mostre o valor da variável dentro e fora dobloco com console.log.
+
+    let numero = 10;
+
+{
+    let numero = 20;
+    console.log(`Dentro do bloco: ${numero}`);
+}
+
+    console.log(`Fora do bloco: ${numero}`);
+
+    // A variável let só funciona dentro das chaves {} onde foi criada, 
+    // então dentro do bloco ela vale 20 e fora continua valendo 10, pois 
+    // são duas variáveis independentes.
+
+    </script>
+</body>
+</html>
