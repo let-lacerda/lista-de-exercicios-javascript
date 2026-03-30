@@ -2,78 +2,19 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exercício 8 - Versão 2</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 500px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #f0f0f0;
-        }
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        input, button {
-            padding: 8px;
-            margin: 10px 0;
-            font-size: 16px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .resultado {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #e3f2fd;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-        .positivo { background-color: #c8e6c9; color: #2e7d32; }
-        .negativo { background-color: #ffcdd2; color: #c62828; }
-        .zero { background-color: #fff3e0; color: #ef6c00; }
-    </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Verificar Positivo, Negativo ou Zero</h2>
-        <form id="numeroForm">
-            <label for="numero">Digite um número:</label><br>
-            <input type="number" id="numero" name="numero" required step="any"><br>
-            <button type="submit">Verificar</button>
-        </form>
-        <div id="resultado" class="resultado"></div>
-    </div>
+    <input type="number" id="numero" placeholder="Digite um número">
+    <button onclick="verificar()">Verificar</button>
+    <p id="resultado"></p>
 
     <script>
-        document.getElementById('numeroForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            let numero = parseFloat(document.getElementById('numero').value);
-            
-            // Usando operador ternário
-            let resultado = numero > 0 ? "Positivo" : (numero < 0 ? "Negativo" : "Zero");
-            
-            let classe = '';
-            if (numero > 0) classe = "positivo";
-            else if (numero < 0) classe = "negativo";
-            else classe = "zero";
-            
-            const resultadoDiv = document.getElementById('resultado');
-            resultadoDiv.innerHTML = `<strong>${resultado}</strong>`;
-            resultadoDiv.className = `resultado ${classe}`;
-        });
+        function verificar() {
+            let num = parseFloat(document.getElementById('numero').value);
+            let msg = num > 0 ? "Positivo" : (num < 0 ? "Negativo" : "Zero");
+            document.getElementById('resultado').innerHTML = msg;
+        }
     </script>
 </body>
 </html>
