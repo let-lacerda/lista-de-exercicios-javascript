@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 7 - Versão 2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        input, button {
+            padding: 8px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .resultado {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .aprovado { background-color: #c8e6c9; color: #2e7d32; }
+        .recuperacao { background-color: #fff3e0; color: #ef6c00; }
+        .reprovado { background-color: #ffcdd2; color: #c62828; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Classificação de Nota</h2>
+        <form id="notaForm">
+            <label for="nota">Digite a nota do aluno(a) (0 a 10):</label><br>
+            <input type="number" id="nota" name="nota" required min="0" max="10" step="0.1"><br>
+            <button type="submit">Classificar</button>
+        </form>
+        <div id="resultado" class="resultado"></div>
+    </div>
+
+    <script>
+        document.getElementById('notaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let nota = parseFloat(document.getElementById('nota').value);
+            let mensagem = '';
+            let classe = '';
+            
+            if (nota >= 7) {
+                mensagem = "Aprovado";
+                classe = "aprovado";
+            } else if (nota >= 5) {
+                mensagem = "Recuperação";
+                classe = "recuperacao";
+            } else {
+                mensagem = "Reprovado";
+                classe = "reprovado";
+            }
+            
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.innerHTML = `<strong>${mensagem}</strong>`;
+            resultadoDiv.className = `resultado ${classe}`;
+        });
+    </script>
+</body>
+</html>
