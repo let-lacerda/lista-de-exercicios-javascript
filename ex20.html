@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fila de atendimento</title>
+</head>
+<body>
+    <h2>Controle de Fila</h2>
+    
+    <input type="text" id="nome" placeholder="Digite o nome">
+    <button onclick="entrar()">Entrar na Fila</button>
+    <button onclick="atender()">Atender</button>
+    
+    <h3>Fila de Espera</h3>
+    <table id="tabelaFila">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Hora Entrada</th>
+            </tr>
+        </thead>
+        <tbody id="corpoFila"></tbody>
+    </table>
+    
+    <h3>Histórico</h3>
+    <table id="tabelaHistorico">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Entrada</th>
+                <th>Atendimento</th>
+                <th>Tempo</th>
+            </tr>
+        </thead>
+        <tbody id="corpoHistorico"></tbody>
+    </table>
+
+    <script>
+        let fila = [];
+        let historico = [];
+        
+        function formatarHora(ts) {
+            let d = new Date(ts);
+            return d.toLocaleTimeString('pt-BR');
+        }
+        
+        function formatarDataHora(ts) {
+            let d = new Date(ts);
+            return d.toLocaleString('pt-BR');
+        }
+        
+        function atualizarTabelas() {
+            let corpoFila = document.getElementById('corpoFila');
+            corpoFila.innerHTML = '';
+            for (let i = 0; i < fila.length; i++) {
+                corpoFila.innerHTML += `<tr><td>${fila[i].nome}</td><td>${formatarHora(fila[i].hora)}</td></tr>`;
+            }
+            
+            let corpoHistorico = document.getElementById('corpoHistorico');
+            corpoHistorico.innerHTML = '';
+            for (let i = 0; i < historico.length; i++) {
+                let h = historico[i];
+                corpoHistorico.innerHTML += `<tr><td>${h.nome}</td><td>${formatarDataHora(h.entrada)}</td><td>${formatarDataHora(h.atendimento)}</td><td>${h.tempo}</td></tr>`;
+            }
+        }
+        
+        function entrar() {
+            let nome = document.getElementById('nome').value;
+            if (nome === '') {
+                alert('Digite um nome');
+                return;
+            }
+            
+            fila.push({
+                nome: nome,
+                hora: Date.now()
+            });
+            
+            document.getElementById('nome').value = '';
+            atualizarTabelas();
+        }
+        
+        function atender() {
+            if (fila.length === 0) {
+                alert('Fila vazia');
+                return;
+            }
+            
+            let pessoa = fila.shift();
+            let horaAtendimento = Date.now();
+            let diferenca = Math.floor((horaAtendimento - pessoa.hora) / 1000);
+            let tempo = diferenca < 60 ? `${diferenca} segundos` : `${Math.floor(diferenca / 60)} minutos e ${diferenca % 60} segundos`;
+            
+            historico.push({
+                nome: pessoa.nome,
+                entrada: pessoa.hora,
+                atendimento: horaAtendimento,
+                tempo: tempo
+            });
+            
+            atualizarTabelas();
+        }
+    </script>
+</body>
+</html>
